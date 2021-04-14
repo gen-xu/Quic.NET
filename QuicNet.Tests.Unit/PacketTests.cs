@@ -1,14 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QuicNet.Infrastructure.Frames;
+﻿using QuicNet.Infrastructure.Frames;
 using QuicNet.Infrastructure.Packets;
+using Xunit;
 
 namespace QuicNet.Tests.Unit
 {
-    [TestClass]
     public class PacketTests
     {
-        [TestMethod]
+        [Fact]
         public void LongeHeaderPacketTest()
         {
             LongHeaderPacket packet = new LongHeaderPacket(Infrastructure.PacketType.Handshake, 123415332, 1);
@@ -24,14 +22,14 @@ namespace QuicNet.Tests.Unit
             LongHeaderPacket result = new LongHeaderPacket();
             result.Decode(data);
 
-            Assert.AreEqual(packet.Type, result.Type);
-            Assert.AreEqual(packet.Version, result.Version);
-            Assert.AreEqual(packet.DestinationConnectionIdLength, result.DestinationConnectionIdLength);
-            Assert.AreEqual(packet.DestinationConnectionId.Value, result.DestinationConnectionId.Value);
-            Assert.AreEqual(packet.SourceConnectionIdLength, result.SourceConnectionIdLength);
-            Assert.AreEqual(packet.SourceConnectionId.Value, result.SourceConnectionId.Value);
-            Assert.AreEqual(packet.PacketType, result.PacketType);
-            Assert.AreEqual(packet.GetFrames().Count, result.GetFrames().Count);
+            Assert.Equal(packet.Type, result.Type);
+            Assert.Equal(packet.Version, result.Version);
+            Assert.Equal(packet.DestinationConnectionIdLength, result.DestinationConnectionIdLength);
+            Assert.Equal(packet.DestinationConnectionId.Value, result.DestinationConnectionId.Value);
+            Assert.Equal(packet.SourceConnectionIdLength, result.SourceConnectionIdLength);
+            Assert.Equal(packet.SourceConnectionId.Value, result.SourceConnectionId.Value);
+            Assert.Equal(packet.PacketType, result.PacketType);
+            Assert.Equal(packet.GetFrames().Count, result.GetFrames().Count);
         }
     }
 }

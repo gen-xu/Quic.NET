@@ -1,65 +1,60 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using QuickNet.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 
 namespace QuicNet.Tests.Unit
 {
-    [TestClass]
     public class StreamIdTests
     {
-        [TestMethod]
+        [Fact]
         public void ClientBidirectional()
         {
             StreamId id = new StreamId(123, StreamType.ClientBidirectional);
             byte[] data = id;
 
-            Assert.IsNotNull(data);
-            Assert.AreEqual(data.Length, 8);
-            Assert.AreEqual(data[6], 1);
-            Assert.AreEqual(data[7], 236);
+            Assert.NotNull(data);
+            Assert.Equal(8, data.Length);
+            Assert.Equal(1, data[6]);
+            Assert.Equal(236, data[7]);
         }
 
-        [TestMethod]
+        [Fact]
         public void ClientUnidirectional()
         {
             StreamId id = new StreamId(123, StreamType.ClientUnidirectional);
             byte[] data = id;
 
-            Assert.IsNotNull(data);
-            Assert.AreEqual(data.Length, 8);
-            Assert.AreEqual(data[6], 1);
-            Assert.AreEqual(data[7], 238);
+            Assert.NotNull(data);
+            Assert.Equal(8, data.Length);
+            Assert.Equal(1, data[6]);
+            Assert.Equal(238, data[7]);
         }
 
-        [TestMethod]
+        [Fact]
         public void ServerBidirectional()
         {
             StreamId id = new StreamId(123, StreamType.ServerBidirectional);
             byte[] data = id;
 
-            Assert.IsNotNull(data);
-            Assert.AreEqual(data.Length, 8);
-            Assert.AreEqual(data[6], 1);
-            Assert.AreEqual(data[7], 237);
+            Assert.NotNull(data);
+            Assert.Equal(8, data.Length);
+            Assert.Equal(1, data[6]);
+            Assert.Equal(237, data[7]);
         }
 
-        [TestMethod]
+        [Fact]
         public void ServerUnidirectional()
         {
             StreamId id = new StreamId(123, StreamType.ServerUnidirectional);
             byte[] data = id;
 
-            Assert.IsNotNull(data);
-            Assert.AreEqual(data.Length, 8);
-            Assert.AreEqual(data[6], 1);
-            Assert.AreEqual(data[7], 239);
+            Assert.NotNull(data);
+            Assert.Equal(8, data.Length);
+            Assert.Equal(1, data[6]);
+            Assert.Equal(239, data[7]);
         }
 
-        [TestMethod]
+        [Fact]
         public void VariableIntegerTest()
         {
             StreamId id = new StreamId(123, StreamType.ClientBidirectional);
@@ -68,7 +63,7 @@ namespace QuicNet.Tests.Unit
 
             StreamId converted = integer;
 
-            Assert.AreEqual(id.Id, converted.Id);
+            Assert.Equal(id.Id, converted.Id);
         }
     }
 }

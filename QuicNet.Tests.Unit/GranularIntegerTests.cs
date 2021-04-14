@@ -1,75 +1,74 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QuickNet.Utilities;
+using Xunit;
 
 namespace QuicNet.Tests.Unit
 {
-    [TestClass]
     public class GranularIntegerTests
     {
-        [TestMethod]
+        [Fact]
         public void Zero()
         {
             GranularInteger integer = new GranularInteger(0);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 1);
-            Assert.AreEqual(bin[0], (byte)0);
-            Assert.AreEqual(num, (UInt64)0);
+            Assert.NotNull(bin);
+            Assert.Single(bin);
+            Assert.Equal(bin[0], (byte)0);
+            Assert.Equal(num, (UInt64)0);
         }
 
-        [TestMethod]
+        [Fact]
         public void One()
         {
             GranularInteger integer = new GranularInteger(1);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 1);
-            Assert.AreEqual(bin[0], (byte)1);
-            Assert.AreEqual(num, (UInt64)1);
+            Assert.NotNull(bin);
+            Assert.Single(bin);
+            Assert.Equal(bin[0], (byte)1);
+            Assert.Equal(num, (UInt64)1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test255()
         {
             GranularInteger integer = new GranularInteger(255);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 1);
-            Assert.AreEqual(bin[0], (byte)255);
-            Assert.AreEqual(num, (UInt64)255);
+            Assert.NotNull(bin);
+            Assert.Single(bin);
+            Assert.Equal(bin[0], (byte)255);
+            Assert.Equal(num, (UInt64)255);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test256()
         {
             GranularInteger integer = new GranularInteger(256);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 2);
-            Assert.AreEqual(bin[0], (byte)1);
-            Assert.AreEqual(bin[1], (byte)0);
-            Assert.AreEqual(num, (UInt64)256);
+            Assert.NotNull(bin);
+            Assert.Equal(2, bin.Length);
+            Assert.Equal(bin[0], (byte)1);
+            Assert.Equal(bin[1], (byte)0);
+            Assert.Equal(num, (UInt64)256);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGranularIntegerMaxValue()
         {
             GranularInteger integer = new GranularInteger(GranularInteger.MaxValue);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 8);
-            Assert.AreEqual(num, GranularInteger.MaxValue);
+            Assert.NotNull(bin);
+            Assert.Equal(8, bin.Length);
+            Assert.Equal(num, GranularInteger.MaxValue);
         }
     }
 }

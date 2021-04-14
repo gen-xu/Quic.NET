@@ -1,95 +1,94 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QuickNet.Utilities;
+using Xunit;
 
 namespace QuicNet.Tests.Unit
 {
-    [TestClass]
     public class VariableIntegerTests
     {
-        [TestMethod]
+        [Fact]
         public void Zero()
         {
             VariableInteger integer = new VariableInteger(0);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 1);
-            Assert.AreEqual(bin[0], (byte)0);
-            Assert.AreEqual(num, (UInt64)0);
+            Assert.NotNull(bin);
+            Assert.Single(bin);
+            Assert.Equal(bin[0], (byte)0);
+            Assert.Equal(num, (UInt64)0);
         }
 
-        [TestMethod]
+        [Fact]
         public void One()
         {
             VariableInteger integer = new VariableInteger(1);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 1);
-            Assert.AreEqual(bin[0], (byte)1);
-            Assert.AreEqual(num, (UInt64)1);
+            Assert.NotNull(bin);
+            Assert.Single(bin);
+            Assert.Equal(bin[0], (byte)1);
+            Assert.Equal(num, (UInt64)1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test63()
         {
             VariableInteger integer = new VariableInteger(63);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 1);
-            Assert.AreEqual(bin[0], (byte)63);
-            Assert.AreEqual(num, (UInt64)63);
+            Assert.NotNull(bin);
+            Assert.Single(bin);
+            Assert.Equal(bin[0], (byte)63);
+            Assert.Equal(num, (UInt64)63);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test64()
         {
             VariableInteger integer = new VariableInteger(64);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 2);
-            Assert.AreEqual(bin[0], (byte)64);
-            Assert.AreEqual(bin[1], (byte)64);
-            Assert.AreEqual(num, (UInt64)64);
+            Assert.NotNull(bin);
+            Assert.Equal(2, bin.Length);
+            Assert.Equal(bin[0], (byte)64);
+            Assert.Equal(bin[1], (byte)64);
+            Assert.Equal(num, (UInt64)64);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test256()
         {
             VariableInteger integer = new VariableInteger(256);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 2);
-            Assert.AreEqual(bin[0], (byte)65);
-            Assert.AreEqual(bin[1], (byte)0);
-            Assert.AreEqual(num, (UInt64)256);
+            Assert.NotNull(bin);
+            Assert.Equal(2, bin.Length);
+            Assert.Equal(bin[0], (byte)65);
+            Assert.Equal(bin[1], (byte)0);
+            Assert.Equal(num, (UInt64)256);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestVariableIntegerMaxValue()
         {
             VariableInteger integer = new VariableInteger(VariableInteger.MaxValue);
             byte[] bin = integer;
             UInt64 num = integer;
 
-            Assert.IsNotNull(bin);
-            Assert.AreEqual(bin.Length, 8);
-            Assert.AreEqual(num, VariableInteger.MaxValue);
+            Assert.NotNull(bin);
+            Assert.Equal(8, bin.Length);
+            Assert.Equal(num, VariableInteger.MaxValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestUInt64MaxValue()
         {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 VariableInteger integer = new VariableInteger(UInt64.MaxValue);
                 byte[] bin = integer;

@@ -1,17 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QuickNet.Utilities;
+﻿using QuickNet.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 
 namespace QuicNet.Tests.Unit
 {
-    [TestClass]
     public class ByteArrayTests
     {
-        [TestMethod]
+        [Fact]
         public void SingleByte()
         {
             byte[] data = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
@@ -20,11 +16,11 @@ namespace QuicNet.Tests.Unit
             byte peek = array.PeekByte();
             byte result = array.ReadByte();
 
-            Assert.AreEqual(peek, (byte)1);
-            Assert.AreEqual(result, (byte)1);
+            Assert.Equal(peek, (byte)1);
+            Assert.Equal(result, (byte)1);
         }
 
-        [TestMethod]
+        [Fact]
         public void SingleConsecutiveBytes()
         {
             byte[] data = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
@@ -34,12 +30,12 @@ namespace QuicNet.Tests.Unit
             byte r2 = array.ReadByte();
             byte r3 = array.ReadByte();
 
-            Assert.AreEqual(r1, (byte)1);
-            Assert.AreEqual(r2, (byte)1);
-            Assert.AreEqual(r3, (byte)2);
+            Assert.Equal(r1, (byte)1);
+            Assert.Equal(r2, (byte)1);
+            Assert.Equal(r3, (byte)2);
         }
 
-        [TestMethod]
+        [Fact]
         public void MultipleBytes()
         {
             byte[] data = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
@@ -47,37 +43,37 @@ namespace QuicNet.Tests.Unit
 
             byte[] result = array.ReadBytes(6);
 
-            Assert.AreEqual(result.Length, 6);
-            CollectionAssert.AreEquivalent(result, new byte[] { 1, 1, 2, 3, 5, 8 });
+            Assert.Equal(6, result.Length);
+            Assert.True(result.SequenceEqual(new byte[] { 1, 1, 2, 3, 5, 8 }));
         }
 
-        [TestMethod]
+        [Fact]
         public void ReadShort()
         {
             byte[] data = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
             ByteArray array = new ByteArray(data);
 
             UInt16 result = array.ReadUInt16();
-            Assert.AreEqual(result, (UInt16)257);
+            Assert.Equal(result, (UInt16)257);
         }
 
-        [TestMethod]
+        [Fact]
         public void ReadInteger()
         {
             byte[] data = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
             ByteArray array = new ByteArray(data);
 
             UInt32 result = array.ReadUInt32();
-            Assert.AreEqual(result, (UInt32)16843267);
+            Assert.Equal(result, (UInt32)16843267);
         }
 
-        [TestMethod]
+        [Fact]
         public void ReadTooMany()
         {
             byte[] data = { 1, 1, 2, 3, 5, 8, 13, 21, 34 };
             ByteArray array = new ByteArray(data);
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
             {
                 byte[] result = array.ReadBytes(10);
             });
