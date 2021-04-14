@@ -1,4 +1,5 @@
 ﻿using QuickNet.Utilities;
+using QuicNet.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -78,7 +79,7 @@ namespace QuicNet.Infrastructure.Packets
 
             // TODO: Implement Token
             byte[] tokenLength = new VariableInteger(0);
-            byte[] length = new VariableInteger(PacketNumber.Size + (UInt64)frames.Length);
+            byte[] length = new VariableInteger(PacketNumber.Size + (ulong)frames.Length);
 
             result.AddRange(tokenLength);
             result.AddRange(length);

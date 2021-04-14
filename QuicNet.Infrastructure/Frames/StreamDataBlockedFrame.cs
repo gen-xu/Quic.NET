@@ -18,7 +18,7 @@ namespace QuicNet.Infrastructure.Frames
 
         }
 
-        public StreamDataBlockedFrame(UInt64 streamId, UInt64 streamDataLimit)
+        public StreamDataBlockedFrame(ulong streamId, ulong streamDataLimit)
         {
             StreamId = streamId;
             MaximumStreamData = streamDataLimit;

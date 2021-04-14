@@ -17,7 +17,7 @@ namespace QuicNet.Infrastructure.Frames
 
         }
 
-        public MaxStreamsFrame(UInt64 maximumStreamId, StreamType appliesTo)
+        public MaxStreamsFrame(ulong maximumStreamId, StreamType appliesTo)
         {
             MaximumStreams = new VariableInteger(maximumStreamId);
         }

@@ -20,7 +20,7 @@ namespace QuicNet.Infrastructure.Frames
 
         }
 
-        public MaxStreamDataFrame(UInt64 streamId, UInt64 maximumStreamData)
+        public MaxStreamDataFrame(ulong streamId, ulong maximumStreamData)
         {
             StreamId = streamId;
             MaximumStreamData = maximumStreamData;

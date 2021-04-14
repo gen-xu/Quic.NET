@@ -4,7 +4,6 @@ using QuicNet.Infrastructure.Frames;
 using QuicNet.Infrastructure.Settings;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace QuicNet.Infrastructure.Packets
 {

@@ -11,12 +11,12 @@ namespace QuicNet.Tests.Unit
         {
             GranularInteger integer = new GranularInteger(0);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Single(bin);
             Assert.Equal(bin[0], (byte)0);
-            Assert.Equal(num, (UInt64)0);
+            Assert.Equal(num, (ulong)0);
         }
 
         [Fact]
@@ -24,12 +24,12 @@ namespace QuicNet.Tests.Unit
         {
             GranularInteger integer = new GranularInteger(1);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Single(bin);
             Assert.Equal(bin[0], (byte)1);
-            Assert.Equal(num, (UInt64)1);
+            Assert.Equal(num, (ulong)1);
         }
 
         [Fact]
@@ -37,12 +37,12 @@ namespace QuicNet.Tests.Unit
         {
             GranularInteger integer = new GranularInteger(255);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Single(bin);
             Assert.Equal(bin[0], (byte)255);
-            Assert.Equal(num, (UInt64)255);
+            Assert.Equal(num, (ulong)255);
         }
 
         [Fact]
@@ -50,13 +50,13 @@ namespace QuicNet.Tests.Unit
         {
             GranularInteger integer = new GranularInteger(256);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Equal(2, bin.Length);
             Assert.Equal(bin[0], (byte)1);
             Assert.Equal(bin[1], (byte)0);
-            Assert.Equal(num, (UInt64)256);
+            Assert.Equal(num, (ulong)256);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace QuicNet.Tests.Unit
         {
             GranularInteger integer = new GranularInteger(GranularInteger.MaxValue);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Equal(8, bin.Length);

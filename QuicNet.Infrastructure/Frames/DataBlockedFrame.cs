@@ -17,7 +17,7 @@ namespace QuicNet.Infrastructure.Frames
 
         }
 
-        public DataBlockedFrame(UInt64 dataLimit)
+        public DataBlockedFrame(ulong dataLimit)
         {
             MaximumData = dataLimit;
         }

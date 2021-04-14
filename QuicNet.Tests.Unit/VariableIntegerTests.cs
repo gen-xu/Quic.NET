@@ -11,12 +11,12 @@ namespace QuicNet.Tests.Unit
         {
             VariableInteger integer = new VariableInteger(0);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Single(bin);
             Assert.Equal(bin[0], (byte)0);
-            Assert.Equal(num, (UInt64)0);
+            Assert.Equal(num, (ulong)0);
         }
 
         [Fact]
@@ -24,12 +24,12 @@ namespace QuicNet.Tests.Unit
         {
             VariableInteger integer = new VariableInteger(1);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Single(bin);
             Assert.Equal(bin[0], (byte)1);
-            Assert.Equal(num, (UInt64)1);
+            Assert.Equal(num, (ulong)1);
         }
 
         [Fact]
@@ -37,12 +37,12 @@ namespace QuicNet.Tests.Unit
         {
             VariableInteger integer = new VariableInteger(63);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Single(bin);
             Assert.Equal(bin[0], (byte)63);
-            Assert.Equal(num, (UInt64)63);
+            Assert.Equal(num, (ulong)63);
         }
 
         [Fact]
@@ -50,13 +50,13 @@ namespace QuicNet.Tests.Unit
         {
             VariableInteger integer = new VariableInteger(64);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Equal(2, bin.Length);
             Assert.Equal(bin[0], (byte)64);
             Assert.Equal(bin[1], (byte)64);
-            Assert.Equal(num, (UInt64)64);
+            Assert.Equal(num, (ulong)64);
         }
 
         [Fact]
@@ -64,13 +64,13 @@ namespace QuicNet.Tests.Unit
         {
             VariableInteger integer = new VariableInteger(256);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Equal(2, bin.Length);
             Assert.Equal(bin[0], (byte)65);
             Assert.Equal(bin[1], (byte)0);
-            Assert.Equal(num, (UInt64)256);
+            Assert.Equal(num, (ulong)256);
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace QuicNet.Tests.Unit
         {
             VariableInteger integer = new VariableInteger(VariableInteger.MaxValue);
             byte[] bin = integer;
-            UInt64 num = integer;
+            ulong num = integer;
 
             Assert.NotNull(bin);
             Assert.Equal(8, bin.Length);
@@ -86,13 +86,13 @@ namespace QuicNet.Tests.Unit
         }
 
         [Fact]
-        public void TestUInt64MaxValue()
+        public void TestulongMaxValue()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
-                VariableInteger integer = new VariableInteger(UInt64.MaxValue);
+                VariableInteger integer = new VariableInteger(ulong.MaxValue);
                 byte[] bin = integer;
-                UInt64 num = integer;
+                ulong num = integer;
             });
         }
     }

@@ -34,7 +34,7 @@ namespace QuicNet.Infrastructure.PacketProcessing
             return packet;
         }
 
-        public ShortHeaderPacket CreateDataPacket(UInt64 streamId, byte[] data, UInt64 offset, bool eos)
+        public ShortHeaderPacket CreateDataPacket(ulong streamId, byte[] data, ulong offset, bool eos)
         {
             ShortHeaderPacket packet = new ShortHeaderPacket(_peerConnectionId.Size);
             packet.PacketNumber = _ns.Get();

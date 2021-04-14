@@ -27,7 +27,7 @@ namespace QuicNet.Context
         /// <summary>
         /// Unique stream identifier
         /// </summary>
-        public UInt64 StreamId { get; private set; }
+        public ulong StreamId { get; private set; }
 
         /// <summary>
         /// Send data to the client.

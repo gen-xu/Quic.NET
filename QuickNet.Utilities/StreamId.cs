@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuicNet.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +17,15 @@ namespace QuickNet.Utilities
 
     public class StreamId
     {
-        public UInt64 Id { get; }
-        public UInt64 IntegerValue { get; }
+        public ulong Id { get; }
+        public ulong IntegerValue { get; }
         public StreamType Type { get; private set; }
 
-        public StreamId(UInt64 id, StreamType type)
+        public StreamId(ulong id, StreamType type)
         {
             Id = id;
             Type = type;
-            IntegerValue = id << 2 | (UInt64)type;
+            IntegerValue = id << 2 | (ulong)type;
         }
 
         public static implicit operator byte[](StreamId id)
@@ -37,7 +38,7 @@ namespace QuickNet.Utilities
             return Decode(data);
         }
 
-        public static implicit operator UInt64(StreamId streamId)
+        public static implicit operator ulong(StreamId streamId)
         {
             return streamId.Id;
         }
@@ -47,9 +48,9 @@ namespace QuickNet.Utilities
             return Decode(ByteUtilities.GetBytes(integer.Value));
         }
 
-        public static byte[] Encode(UInt64 id, StreamType type)
+        public static byte[] Encode(ulong id, StreamType type)
         {
-            UInt64 identifier = id << 2 | (UInt64)type;
+            ulong identifier = id << 2 | (ulong)type;
 
             byte[] result = ByteUtilities.GetBytes(identifier);
 
@@ -59,9 +60,9 @@ namespace QuickNet.Utilities
         public static StreamId Decode(byte[] data)
         {
             StreamId result;
-            UInt64 id = ByteUtilities.ToUInt64(data);
-            UInt64 identifier = id >> 2;
-            UInt64 type = (UInt64)(0x03 & id);
+            ulong id = ByteUtilities.Toulong(data);
+            ulong identifier = id >> 2;
+            ulong type = (ulong)(0x03 & id);
             StreamType streamType = (StreamType)type;
 
             result = new StreamId(identifier, streamType);

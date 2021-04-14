@@ -1,22 +1,15 @@
 ﻿using QuickNet.Utilities;
 using QuicNet.Connections;
 using QuicNet.Constants;
-using QuicNet.Context;
 using QuicNet.Events;
-using QuicNet.Exceptions;
 using QuicNet.Infrastructure;
 using QuicNet.Infrastructure.Frames;
 using QuicNet.Infrastructure.PacketProcessing;
 using QuicNet.Infrastructure.Packets;
 using QuicNet.Infrastructure.Settings;
 using QuicNet.InternalInfrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuicNet
 {
@@ -45,7 +38,7 @@ namespace QuicNet
         {
             _started = false;
             _port = port;
-            
+
             _unpacker = new Unpacker();
             _packetCreator = new InitialPacketCreator();
         }
@@ -69,9 +62,9 @@ namespace QuicNet
                     OnClientConnected?.Invoke(connection);
                 }
 
-                if (packet is ShortHeaderPacket)
+                if (packet is ShortHeaderPacket shortHeaderPacket)
                 {
-                    ProcessShortHeaderPacket(packet);
+                    ProcessShortHeaderPacket(shortHeaderPacket);
                 }
             }
         }
@@ -95,7 +88,6 @@ namespace QuicNet
         private QuicConnection ProcessInitialPacket(Packet packet, IPEndPoint endPoint)
         {
             QuicConnection result = null;
-            UInt64 availableConnectionId;
             byte[] data;
             // Unsupported version. Version negotiation packet is sent only on initial connection. All other packets are dropped. (5.2.2 / 16th draft)
             if (packet.Version != QuicVersion.CurrentVersion || !QuicVersion.SupportedVersions.Contains(packet.Version))
@@ -115,7 +107,7 @@ namespace QuicNet
             {
                 ip.AttachFrame(new ConnectionCloseFrame(ErrorCode.PROTOCOL_VIOLATION, 0x00, ErrorConstants.PMTUNotReached));
             }
-            else if (ConnectionPool.AddConnection(new ConnectionData(new PacketWireTransfer(_client, endPoint), cast.SourceConnectionId, 0), out availableConnectionId) == true)
+            else if (ConnectionPool.TryAddConnection(new ConnectionData(new PacketWireTransfer(_client, endPoint), cast.SourceConnectionId, 0), out ulong availableConnectionId))
             {
                 // Tell the peer the available connection id
                 ip.SourceConnectionId = (byte)availableConnectionId;

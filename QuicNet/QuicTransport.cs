@@ -1,9 +1,5 @@
 ﻿using QuicNet.Connections;
 using QuicNet.Infrastructure.Packets;
-using QuicNet.InternalInfrastructure;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace QuicNet
 {
@@ -13,9 +9,9 @@ namespace QuicNet
         /// Processes short header packet, by distributing the frames towards connections.
         /// </summary>
         /// <param name="packet"></param>
-        protected void ProcessShortHeaderPacket(Packet packet)
+        protected void ProcessShortHeaderPacket(ShortHeaderPacket packet)
         {
-            ShortHeaderPacket shp = (ShortHeaderPacket)packet;
+            ShortHeaderPacket shp = packet;
 
             QuicConnection connection = ConnectionPool.Find(shp.DestinationConnectionId);
 

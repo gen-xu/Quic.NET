@@ -23,12 +23,12 @@ namespace QuicNet.Infrastructure.Frames
 
         }
 
-        public StreamFrame(UInt64 streamId, byte[] data, UInt64 offset, bool eos)
+        public StreamFrame(ulong streamId, byte[] data, ulong offset, bool eos)
         {
             StreamId = streamId;
             StreamData = data;
             Offset = offset;
-            Length = (UInt64)data.Length;
+            Length = (ulong)data.Length;
             EndOfStream = eos;
         }
 

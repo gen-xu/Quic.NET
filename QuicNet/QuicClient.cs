@@ -1,20 +1,14 @@
 ﻿using QuickNet.Utilities;
 using QuicNet.Connections;
-using QuicNet.Context;
 using QuicNet.Exceptions;
 using QuicNet.Infrastructure.Frames;
 using QuicNet.Infrastructure.PacketProcessing;
 using QuicNet.Infrastructure.Packets;
 using QuicNet.Infrastructure.Settings;
 using QuicNet.InternalInfrastructure;
-using QuicNet.Streams;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuicNet
 {
@@ -24,12 +18,12 @@ namespace QuicNet
     public class QuicClient : QuicTransport
     {
         private IPEndPoint _peerIp;
-        private UdpClient _client;
+        private readonly UdpClient _client;
 
         private QuicConnection _connection;
-        private InitialPacketCreator _packetCreator;
+        private readonly InitialPacketCreator _packetCreator;
 
-        private UInt64 _maximumStreams = QuicSettings.MaximumStreamId;
+        private ulong _maximumStreams = QuicSettings.MaximumStreamId;
         private PacketWireTransfer _pwt;
 
         public QuicClient()

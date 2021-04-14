@@ -1,9 +1,6 @@
 ﻿using QuickNet.Utilities;
-using System;
+using QuicNet.Utilities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuicNet.Infrastructure.Frames
 {
@@ -29,11 +26,11 @@ namespace QuicNet.Infrastructure.Frames
         {
             ActualType = 0x1c;
 
-            ErrorCode = (UInt64)error;
-            FrameType = new VariableInteger((UInt64)frameType);
+            ErrorCode = (ulong)error;
+            FrameType = new VariableInteger((ulong)frameType);
             if (!string.IsNullOrWhiteSpace(reason))
             {
-                ReasonPhraseLength = new VariableInteger((UInt64)reason.Length);
+                ReasonPhraseLength = new VariableInteger((ulong)reason.Length);
             }
             else
             {
@@ -70,7 +67,7 @@ namespace QuicNet.Infrastructure.Frames
 
             if (string.IsNullOrWhiteSpace(ReasonPhrase) == false)
             {
-                byte[] rpl = new VariableInteger((UInt64)ReasonPhrase.Length);
+                byte[] rpl = new VariableInteger((ulong)ReasonPhrase.Length);
                 result.AddRange(rpl);
 
                 byte[] reasonPhrase = ByteUtilities.GetBytes(ReasonPhrase);

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace QuickNet.Utilities
+namespace QuicNet.Utilities
 {
     public static class ByteUtilities
     {
-        public static byte[] GetBytes(UInt64 integer)
+        public static byte[] GetBytes(ulong integer)
         {
             byte[] result = BitConverter.GetBytes(integer);
             if (BitConverter.IsLittleEndian)
@@ -17,7 +14,7 @@ namespace QuickNet.Utilities
             return result;
         }
 
-        public static byte[] GetBytes(UInt32 integer)
+        public static byte[] GetBytes(uint integer)
         {
             byte[] result = BitConverter.GetBytes(integer);
             if (BitConverter.IsLittleEndian)
@@ -26,7 +23,7 @@ namespace QuickNet.Utilities
             return result;
         }
 
-        public static byte[] GetBytes(UInt16 integer)
+        public static byte[] GetBytes(ushort integer)
         {
             byte[] result = BitConverter.GetBytes(integer);
             if (BitConverter.IsLittleEndian)
@@ -42,32 +39,32 @@ namespace QuickNet.Utilities
             return result;
         }
 
-        public static UInt64 ToUInt64(byte[] data)
+        public static ulong Toulong(byte[] data)
         {
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(data);
 
-            UInt64 result = BitConverter.ToUInt64(data, 0);
+            ulong result = BitConverter.ToUInt64(data, 0);
 
             return result;
         }
 
-        public static UInt32 ToUInt32(byte[] data)
+        public static uint ToUInt32(byte[] data)
         {
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(data);
 
-            UInt32 result = BitConverter.ToUInt32(data, 0);
+            uint result = BitConverter.ToUInt32(data, 0);
 
             return result;
         }
 
-        public static UInt16 ToUInt16(byte[] data)
+        public static ushort ToUInt16(byte[] data)
         {
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(data);
 
-            UInt16 result = BitConverter.ToUInt16(data, 0);
+            ushort result = BitConverter.ToUInt16(data, 0);
 
             return result;
         }

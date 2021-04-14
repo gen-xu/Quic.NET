@@ -19,11 +19,11 @@ namespace QuicNet.Streams
     /// </summary>
     public class QuicStream
     {
-        private SortedList<UInt64, byte[]> _data = new SortedList<ulong, byte[]>();
+        private SortedList<ulong, byte[]> _data = new SortedList<ulong, byte[]>();
         private QuicConnection _connection;
-        private UInt64 _maximumStreamData;
-        private UInt64 _currentTransferRate;
-        private UInt64 _sendOffset;
+        private ulong _maximumStreamData;
+        private ulong _currentTransferRate;
+        private ulong _sendOffset;
 
         public StreamState State { get; set; }
         public StreamType Type { get; set; }
@@ -76,12 +76,12 @@ namespace QuicNet.Streams
 
                 ShortHeaderPacket packet = _connection.PacketCreator.CreateDataPacket(this.StreamId.IntegerValue, buffer, _sendOffset, eos);
                 if (i == 0 && data.Length >= QuicSettings.MaxStreamData)
-                    packet.AttachFrame(new MaxStreamDataFrame(this.StreamId.IntegerValue, (UInt64)(data.Length + 1)));
+                    packet.AttachFrame(new MaxStreamDataFrame(this.StreamId.IntegerValue, (ulong)(data.Length + 1)));
 
                 if (_connection.MaximumReached())
-                    packet.AttachFrame(new StreamDataBlockedFrame(StreamId.IntegerValue, (UInt64)data.Length));
+                    packet.AttachFrame(new StreamDataBlockedFrame(StreamId.IntegerValue, (ulong)data.Length));
 
-                _sendOffset += (UInt64)buffer.Length;
+                _sendOffset += (ulong)buffer.Length;
 
                 _connection.SendData(packet);
             }
@@ -114,7 +114,7 @@ namespace QuicNet.Streams
             _data.Clear();
         }
 
-        public void SetMaximumStreamData(UInt64 maximumData)
+        public void SetMaximumStreamData(ulong maximumData)
         {
             _maximumStreamData = maximumData;
         }
@@ -160,7 +160,7 @@ namespace QuicNet.Streams
             if (frame.EndOfStream)
                 State = StreamState.SizeKnown;
 
-            _currentTransferRate += (UInt64)data.Length;
+            _currentTransferRate += (ulong)data.Length;
 
             // Terminate connection if maximum stream data is reached
             if (_currentTransferRate >= _maximumStreamData)
@@ -187,14 +187,14 @@ namespace QuicNet.Streams
 
         private bool IsStreamFull()
         {
-            UInt64 length = 0;
+            ulong length = 0;
 
             foreach (var kvp in _data)
             {
                 if (kvp.Key > 0 && kvp.Key != length)
                     return false;
 
-                length += (UInt64)kvp.Value.Length;
+                length += (ulong)kvp.Value.Length;
             }
 
             return true;

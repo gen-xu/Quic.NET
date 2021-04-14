@@ -22,17 +22,17 @@ namespace QuicNet.Connections
         private readonly NumberSpace _ns = new NumberSpace();
         private readonly PacketWireTransfer _pwt;
 
-        private UInt64 _currentTransferRate;
+        private ulong _currentTransferRate;
         private ConnectionState _state;
         private string _lastError;
-        private Dictionary<UInt64, QuicStream> _streams;
+        private Dictionary<ulong, QuicStream> _streams;
 
         public GranularInteger ConnectionId { get; private set; }
         public GranularInteger PeerConnectionId { get; private set; }
 
         public PacketCreator PacketCreator { get; private set; }
-        public UInt64 MaxData { get; private set; }
-        public UInt64 MaxStreams { get; private set; }
+        public ulong MaxData { get; private set; }
+        public ulong MaxStreams { get; private set; }
 
         public StreamOpenedEvent OnStreamOpened { get; set; }
         public ConnectionClosedEvent OnConnectionClosed { get; set; }
@@ -128,7 +128,7 @@ namespace QuicNet.Connections
             {
                 stream = new QuicStream(this, streamId);
 
-                if ((UInt64)_streams.Count < MaxStreams)
+                if ((ulong)_streams.Count < MaxStreams)
                     _streams.Add(streamId.Id, stream);
                 else
                     SendMaximumStreamReachedError();
@@ -202,7 +202,7 @@ namespace QuicNet.Connections
             _currentTransferRate = 0;
             _state = ConnectionState.Open;
             _lastError = string.Empty;
-            _streams = new Dictionary<UInt64, QuicStream>();
+            _streams = new Dictionary<ulong, QuicStream>();
             _pwt = connection.PWT;
 
             ConnectionId = connection.ConnectionId;

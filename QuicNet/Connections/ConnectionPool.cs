@@ -20,7 +20,7 @@ namespace QuicNet.Connections
         /// </summary>
         private static NumberSpace _ns = new NumberSpace(QuicSettings.MaximumConnectionIds);
 
-        private static Dictionary<UInt64, QuicConnection> _pool = new Dictionary<UInt64, QuicConnection>();
+        private static Dictionary<ulong, QuicConnection> _pool = new Dictionary<ulong, QuicConnection>();
 
         private static List<QuicConnection> _draining = new List<QuicConnection>();
 
@@ -31,7 +31,7 @@ namespace QuicNet.Connections
         /// </summary>
         /// <param name="id">Connection Id</param>
         /// <returns></returns>
-        public static bool AddConnection(ConnectionData connection, out UInt64 availableConnectionId)
+        public static bool TryAddConnection(ConnectionData connection, out ulong availableConnectionId)
         {
             availableConnectionId = 0;
 
@@ -49,13 +49,13 @@ namespace QuicNet.Connections
             return true;
         }
 
-        public static void RemoveConnection(UInt64 id)
+        public static void RemoveConnection(ulong id)
         {
             if (_pool.ContainsKey(id))
                 _pool.Remove(id);
         }
 
-        public static QuicConnection Find(UInt64 id)
+        public static QuicConnection Find(ulong id)
         {
             if (_pool.ContainsKey(id) == false)
                 return null;
