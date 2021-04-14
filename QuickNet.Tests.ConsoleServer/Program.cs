@@ -1,17 +1,8 @@
-﻿using QuickNet.Utilities;
-using QuicNet;
+﻿using QuicNet;
 using QuicNet.Connections;
-using QuicNet.Context;
-using QuicNet.Infrastructure;
-using QuicNet.Infrastructure.Frames;
-using QuicNet.Infrastructure.PacketProcessing;
-using QuicNet.Infrastructure.Packets;
 using QuicNet.Streams;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickNet.Tests.ConsoleServer
 {
